@@ -3,7 +3,7 @@ import sys
 import warnings
 if not sys.modules.get('warnings'):
     sys.modules['warnings'] = warnings
- import sys
+import sys
 import warnings
 if not sys.modules.get('warnings'):
     sys.modules['warnings'] = warnings
@@ -214,3 +214,4 @@ with col_details:
         
     else:
         st.warning("Nenhum contrato selecionado ou lista vazia.")
+
