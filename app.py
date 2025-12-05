@@ -3,6 +3,9 @@ import sys
 import warnings
 if not sys.modules.get('warnings'):
     sys.modules['warnings'] = warnings
+
+############
+
 import sys
 import warnings
 if not sys.modules.get('warnings'):
@@ -87,10 +90,38 @@ df_filtered = df[
     (df['Fraude_Real'].isin(status_filter))
 ]
 
+# No início do seu layout principal
+col_logo, col_text = st.columns([1, 5])
+
+with col_text:
+    # Título Principal (H1)
+    st.markdown("# 🛡️ Painel de Governança e Risco em Contratos")
+    
+    # Subtítulo (H3 ou texto destacado)
+    st.markdown("### Priorização inteligente de auditorias com Inteligência Artificial Explicável (XAI)")
+    
+    # Informações Técnicas e Acadêmicas (Texto menor/cinza para não poluir)
+    st.markdown("""
+     <div style='background-color: #f0f2f6; 
+                padding: 15px; 
+                border-radius: 5px; 
+                font-size: 18px; 
+                color: #333; 
+                 max-width: 920px;   /* <--- ESTA É A MUDANÇA MÁGICA */
+                margin-top: 10px;'>
+        <b>Modelo:</b> Hybrid Ensemble (TabPFN + XGB + LGBM) | <b>Explicabilidade:</b> Shapley Value <br>
+        <i>Demonstração da Tese de Mestrado (PPCA-UnB) - Nilson Romero Michiles Júnior</i>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---") # Linha divisória
 # --- Layout Principal ---
-st.title("🛡️ Painel de suporte à Priorização de Auditorias de Contratos")
-st.markdown("**Ferramenta de apoio à decisão baseada em risco por meio de IA**")
-st.markdown("Modelo Preditivo: **Hybrid Ensemble** / Modelo Explicabilidade: **Shapley Value**")
+#st.title("🛡️ Painel de suporte à Priorização de Auditorias de Contratos")
+#st.markdown("**Ferramenta de apoio à decisão baseada em risco por meio de IA**")
+#st.markdown("Modelo Preditivo: **Hybrid Ensemble** / Modelo Explicabilidade: **Shapley Value**")
+#st.markdown("**Programa de Pós-Graduação em Computação Aplicada - PPCA UNB**")
+#st.markdown("Demonstração aplicada da tese de mestrado de **Nilson Romero Michiles Júnior**")
+
 
 # KPIs do Topo
 kpi1, kpi2, kpi3, kpi4 = st.columns(4)
@@ -214,4 +245,3 @@ with col_details:
         
     else:
         st.warning("Nenhum contrato selecionado ou lista vazia.")
-
