@@ -4,6 +4,11 @@ import warnings
 if not sys.modules.get('warnings'):
     sys.modules['warnings'] = warnings
     
+import sys
+import warnings
+if not sys.modules.get('warnings'):
+    sys.modules['warnings'] = warnings
+    
 import streamlit as st
 import streamlit as st
 import pandas as pd
@@ -58,7 +63,7 @@ st.sidebar.header("🔍 Filtros de Auditoria")
 risk_filter = st.sidebar.multiselect(
     "Nível de Risco (Prioridade)",
     options=["ALTO", "MODERADO", "BAIXO"],
-    default=["ALTO", "MODERADO"], # Foco inicial nos casos críticos
+    default=["ALTO", "MODERADO", "BAIXO"], # Foco inicial nos casos críticos
     help="Alto: Score >= 0.75 | Moderado: 0.40 a 0.75 | Baixo: < 0.40"
 )
 
@@ -84,8 +89,9 @@ df_filtered = df[
 ]
 
 # --- Layout Principal ---
-st.title("🛡️ Painel de Governança e Priorização de Auditorias")
-st.markdown("Ferramenta de apoio à decisão baseada em risco (Hybrid Ensemble).")
+st.title("🛡️ Painel de suporte à Priorização de Auditorias de Contratos")
+st.markdown("**Ferramenta de apoio à decisão baseada em risco por meio de IA**")
+st.markdown("Modelo Preditivo: **Hybrid Ensemble** / Modelo Explicabilidade: **Shapley Value**")
 
 # KPIs do Topo
 kpi1, kpi2, kpi3, kpi4 = st.columns(4)
@@ -104,7 +110,7 @@ kpi4.download_button(
 col_table, col_details = st.columns([1.6, 1])
 
 with col_table:
-    st.subheader("📋 Fila de Auditoria")
+    st.subheader("📋 Listagem de Contrato/Fornecedor")
     
     # Configuração de cores para a tabela
     def highlight_risk(val):
@@ -119,9 +125,10 @@ with col_table:
         .map(highlight_risk, subset=['Nivel_Risco'])
         .background_gradient(subset=['Risco_Calculado'], cmap='Reds', vmin=0, vmax=1),
         use_container_width=True,
+        width='stretch',
         selection_mode="single-row",
         on_select="rerun",
-        height=600
+        height=730
     )
 
 # Lógica de Seleção
@@ -177,7 +184,7 @@ with col_details:
             }
         ))
         fig_gauge.update_layout(height=280, margin=dict(l=20, r=20, t=50, b=20))
-        st.plotly_chart(fig_gauge, use_container_width=True)
+        st.plotly_chart(fig_gauge, use_container_width=True,width='stretch')
 
         # Dados Cadastrais
         st.info(f"🆔 **ID do Contrato/Fornecedor:** {selected_index}")
@@ -185,6 +192,9 @@ with col_details:
         # --- 2. Explicabilidade (SHAP Waterfall) ---
         st.subheader("🔍 Fatores Determinantes (SHAP)")
         st.markdown(f"Por que o modelo atribuiu **{score:.1%}** de risco?")
+       
+       #AUMENTAR A FONTE NO DASHBOARD
+        plt.rcParams.update({'font.size': 16, 'axes.labelsize': 16, 'ytick.labelsize': 16})
 
         # Criar objeto Explanation
         shap_exp = shap.Explanation(
@@ -193,14 +203,15 @@ with col_details:
             data=row_data[feature_names].values,
             feature_names=feature_names
         )
-
+       
+        
+        
+        
+        
         # Plotar
-        fig, ax = plt.subplots(figsize=(10, 12))
+        fig, ax = plt.subplots(figsize=(10, 13))
         shap.plots.waterfall(shap_exp, max_display=8, show=False)
-        st.pyplot(fig, bbox_inches='tight')
+        st.pyplot(fig, bbox_inches='tight',use_container_width=True,width='stretch')
         
     else:
-
         st.warning("Nenhum contrato selecionado ou lista vazia.")
-
-
