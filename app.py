@@ -1,3 +1,5 @@
+!pip install joblib
+
 import sys
 import warnings
 if not sys.modules.get('warnings'):
@@ -199,4 +201,5 @@ with col_details:
         st.pyplot(fig, bbox_inches='tight')
         
     else:
+
         st.warning("Nenhum contrato selecionado ou lista vazia.")
