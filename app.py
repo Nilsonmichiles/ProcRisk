@@ -1,4 +1,3 @@
-!pip install joblib
 
 import sys
 import warnings
@@ -203,3 +202,4 @@ with col_details:
     else:
 
         st.warning("Nenhum contrato selecionado ou lista vazia.")
+
