@@ -3,8 +3,7 @@ import sys
 import warnings
 if not sys.modules.get('warnings'):
     sys.modules['warnings'] = warnings
-    
-import sys
+ import sys
 import warnings
 if not sys.modules.get('warnings'):
     sys.modules['warnings'] = warnings
@@ -95,9 +94,9 @@ st.markdown("Modelo Preditivo: **Hybrid Ensemble** / Modelo Explicabilidade: **S
 
 # KPIs do Topo
 kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-kpi1.metric("Contratos Selecionados", len(df_filtered))
-kpi2.metric("Prioridade Alta", len(df_filtered[df_filtered['Nivel_Risco']=="ALTO"]))
-kpi3.metric("Média de Risco", f"{df_filtered['Risco_Calculado'].mean():.1%}")
+kpi1.metric("**Contratos Selecionados**", len(df_filtered))
+kpi2.metric("**Prioridade Alta**", len(df_filtered[df_filtered['Nivel_Risco']=="ALTO"]))
+kpi3.metric("**Score de Risco Médio**", f"{df_filtered['Risco_Calculado'].mean():.1%}")
 kpi4.download_button(
     label="📥 Exportar Contratos de Selecionados",
     data=df_filtered.to_csv(index=True).encode('utf-8'),
