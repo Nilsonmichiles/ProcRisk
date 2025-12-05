@@ -195,11 +195,12 @@ with col_details:
         )
 
         # Plotar
-        fig, ax = plt.subplots(figsize=(8, 8))
-        shap.plots.waterfall(shap_exp, max_display=12, show=False)
+        fig, ax = plt.subplots(figsize=(10, 12))
+        shap.plots.waterfall(shap_exp, max_display=8, show=False)
         st.pyplot(fig, bbox_inches='tight')
         
     else:
 
         st.warning("Nenhum contrato selecionado ou lista vazia.")
+
 
